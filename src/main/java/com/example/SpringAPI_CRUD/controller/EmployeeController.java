@@ -1,5 +1,6 @@
 package com.example.SpringAPI_CRUD.controller;
 
+import com.example.SpringAPI_CRUD.error.EmployeeNotFoundException;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.SpringAPI_CRUD.entity.Employee;
@@ -29,7 +30,7 @@ public class EmployeeController {
         return employees;
     }
     @GetMapping("/employees/{employeeId}")
-    public Employee getEmployees(@PathVariable Long employeeId){
+    public Employee getEmployees(@PathVariable Long employeeId) throws EmployeeNotFoundException {
         Employee employee = employeeService.getEmployeeById(employeeId);
         return employee;
     }

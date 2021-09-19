@@ -1,6 +1,7 @@
 package com.example.SpringAPI_CRUD.service;
 
 import com.example.SpringAPI_CRUD.entity.Employee;
+import com.example.SpringAPI_CRUD.error.EmployeeNotFoundException;
 import com.example.SpringAPI_CRUD.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,13 +26,13 @@ public class EmployeeServiceImpl implements EmployeeService{
     }
 
     @Override
-    public Employee getEmployeeById(long id) {
+    public Employee getEmployeeById(long id) throws EmployeeNotFoundException {
         Optional<Employee> result = employeeRepository.findById(id);
         Employee employee = null;
         if(result.isPresent()){
             employee = result.get();
         }else {
-            throw new RuntimeException("Did not find Employee id - "+id);
+            throw new EmployeeNotFoundException("Did not find Employee id - "+id);
         }
         return employee;
     }
